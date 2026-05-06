@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>PixelPerfect Assets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PixelPerfect</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#produk">Produk</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <h1>PixelPerfect Assets</h1>
+        <p>Solusi Template Digital Terbaik.</p>
+    </header>
+
+    <section id="produk" class="container">
+        <h2>Produk Kami</h2>
+        <div class="grid">
+            {% for item in products %}
+            <div class="card">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.desc }}</p>
+                <p><strong>Harga: {{ item.price }}</strong></p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="kontak" class="container">
+        <h2>Kontak Kami</h2>
+        
+        {% if submitted %}
+            <div class="success-msg">Terima kasih, <strong>{{ nama }}</strong>! Pesan Anda telah kami terima.</div>
+        {% endif %}
+
+        <form action="/submit" method="POST">
+            <input type="text" name="nama" placeholder="Masukkan Nama Anda" required><br>
+            <input type="email" name="email" placeholder="Masukkan Email Anda" required><br>
+            <button type="submit">Kirim</button>
+        </form>
+    </section>
+
+</body>
+</html>
