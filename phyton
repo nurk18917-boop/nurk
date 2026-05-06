@@ -1,0 +1,25 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# Data produk (Simulasi database)
+products = [
+    {"name": "Notion Life Planner", "desc": "Sistem manajemen hidup harian agar lebih produktif.", "price": "Rp 49.000"},
+    {"name": "Canva Social Media Kit", "desc": "50+ template Instagram siap pakai untuk branding.", "price": "Rp 99.000"},
+    {"name": "UI/UX Components", "desc": "Kumpulan elemen desain untuk website modern.", "price": "Rp 150.000"}
+]
+
+@app.route('/')
+def home():
+    return render_template('index.html', products=products)
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    # Mengambil data dari form
+    nama = request.form.get('nama')
+    email = request.form.get('email')
+    # Mengirim data kembali ke template untuk ditampilkan
+    return render_template('index.html', products=products, submitted=True, nama=nama)
+
+if __name__ == '__main__':
+    app.run(debug=True)
